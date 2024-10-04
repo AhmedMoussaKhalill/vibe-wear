@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const ProductList = () => {
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('/api/products');
+                setProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                setError('Error fetching products: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+
+    const handleEdit = (id) => {
+        navigate(`/admin-product/edit-product/${id}`);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`/api/products/${id}`);
+
+            const updatedProducts = products.filter((product) => product.id !== id);
+            setProducts(updatedProducts);
+            console.log(`Product with id ${id} deleted`);
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            setError('Error deleting product: ' + error.message);
+        }
+    };
+
+
+    if (loading) return <div className="text-center text-lg">Loading...</div>;
+    if (error) return <div className="text-center text-red-500">Error: {error}</div>;
+    if (products.length === 0) return <div className="text-center">No products available.</div>;
+
+    return (
+        <div className="container mx-auto px-4 py-6">
+            <h2 className="text-3xl font-bold mb-6 text-center">Product List</h2>
+            <div className="text-center mb-4">
+                <Link
+                    to="/admin-product/add-product"
+                    className="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                >
+                    Add A New Product
+                </Link>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-200">
+                    <thead className="bg-gray-300">
+                        <tr>
+                            <th className="px-6 py-4 text-left text-gray-600 font-bold w-1/2">Product</th>
+                            <th className="px-6 py-4 text-right text-gray-600 font-bold w-1/4">Price</th>
+                            <th className="px-6 py-4 text-center text-gray-600 font-bold w-1/4">Operators</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product) => (
+                            <tr key={product.id} className="border-t border-gray-200">
+                                <td className="px-6 py-4">{product.name}</td>
+                                <td className="px-6 py-4 text-right">${product.price}</td>
+                                <td className="px-6 py-4 text-center space-x-2">
+                                    <Link to={`/admin-product/view-product/${product.id}`}>
+                                        <button className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-200">
+                                            View
+                                        </button>
+                                    </Link>
+                                    <Link to={`/admin-product/edit-product/${product.id}`}>
+                                        <button
+                                            onClick={() => handleEdit(product.id)}
+                                            className="bg-black text-white px-4 py-2 rounded hover:bg-gray-700 transition duration-200"
+                                        >
+                                            Edit
+                                        </button>
+                                    </Link>
+
+                                    <button
+                                        onClick={() => handleDelete(product.id)}
+                                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 transition duration-200"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    );
+};
+
+export default ProductList;
+
