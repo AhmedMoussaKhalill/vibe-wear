@@ -1,71 +1,92 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+
 const app = express();
 
+// Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'data'))); // Serve static files from 'data' directory
 
+// File path for products.json
 const filePath = path.join(__dirname, 'data', 'products.json');
 
-// Middleware to read the products from JSON file
+// Check if products.json exists and is valid
+console.log('Checking if products.json exists:', fs.existsSync(filePath));
+if (fs.existsSync(filePath)) {
+    const fileContents = fs.readFileSync(filePath, 'utf-8');
+    console.log('products.json contents:', fileContents);
+    try {
+        JSON.parse(fileContents);
+        console.log('products.json contains valid JSON');
+    } catch (error) {
+        console.error('products.json contains invalid JSON:', error);
+    }
+} else {
+    console.error('products.json does not exist');
+}
+
+// Function to read products from file
 const readProductsFromFile = () => {
     return new Promise((resolve, reject) => {
         fs.readFile(filePath, 'utf-8', (err, data) => {
             if (err) {
-                return reject(new Error('Error reading products'));
+                reject(new Error(`Failed to read products file: ${err.message}`));
+            } else {
+                try {
+                    const products = JSON.parse(data);
+                    resolve(products);
+                } catch (parseError) {
+                    reject(new Error(`Failed to parse products JSON: ${parseError.message}`));
+                }
             }
-            resolve(JSON.parse(data));
         });
     });
 };
 
-// Function to get the next ID for a new product
-const getNextId = async () => {
-    const products = await readProductsFromFile();
-    if (products.length === 0) return 1; // Start with 1 if there are no products
-    const lastId = Math.max(...products.map(product => product.id)); // Get the highest existing ID
-    return lastId + 1; // Return the next ID
-};
-
-// Middleware to write products to JSON file
+// Function to write products to file
 const writeProductsToFile = (products) => {
     return new Promise((resolve, reject) => {
-        fs.writeFile(filePath, JSON.stringify(products, null, 2), (err) => {
+        fs.writeFile(filePath, JSON.stringify(products, null, 2), 'utf-8', (err) => {
             if (err) {
-                return reject(new Error('Error writing products'));
+                reject(new Error(`Failed to write to products file: ${err.message}`));
+            } else {
+                resolve();
             }
-            resolve();
         });
     });
 };
 
-// GET endpoint to fetch all products
+// Function to get the next ID
+const getNextId = async () => {
+    const products = await readProductsFromFile();
+    const ids = products.map(p => p.id);
+    const maxId = Math.max(...ids);
+    return maxId + 1;
+};
+
+// Routes
 app.get('/api/products', async (req, res) => {
     try {
         const products = await readProductsFromFile();
-        res.status(200).json(products);
+        res.json(products);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 
-// GET endpoint to fetch a single product by ID
 app.get('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const products = await readProductsFromFile();
-        const product = products.find((p) => p.id === parseInt(id)); // Ensure ID is parsed to an integer
+        const product = products.find(p => p.id === parseInt(id));
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
-        res.status(200).json(product);
+        res.json(product);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
-
-
 
 // POST endpoint to add a new product
 app.post('/api/products', async (req, res) => {
@@ -87,7 +108,6 @@ app.post('/api/products', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 // PUT endpoint to update a product
 app.put('/api/products/:id', async (req, res) => {
@@ -135,6 +155,8 @@ app.delete('/api/products/:id', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

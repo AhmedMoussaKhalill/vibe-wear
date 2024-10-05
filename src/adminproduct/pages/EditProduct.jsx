@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 import Swal from 'sweetalert2';
 
 const EditProduct = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [product, setProduct] = useState({
         name: '',
         price: '',
@@ -17,27 +17,36 @@ const EditProduct = () => {
         rate: '',
         ratingCount: '',
     });
+    const [loading, setLoading] = useState(true); 
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    console.log('Product ID:', id); 
+    console.log('Product ID:', id);
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await fetch(`/api/products/${id}`);
-                const productData = await response.json();
-                setProduct(productData); 
-            } catch (error) {
-                setError('Error fetching product');
+// Fetch product data on mount
+useEffect(() => {
+    const fetchProduct = async () => {
+        console.log('Fetching product with ID:', id);        try {
+            const response = await fetch(`/api/products/${id}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch product');
             }
-        };
+            const productData = await response.json();
+            setProduct(productData); 
+        } catch (error) {
+            setError('Error fetching product');
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchProduct();
-    }, [id]);
+    fetchProduct();
+}, [id]);
 
+
+    // Handle product update
     const handleUpdate = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); 
         try {
             await productService.updateProduct(id, product);
             Swal.fire({
@@ -56,9 +65,14 @@ const EditProduct = () => {
                 text: errorMessage,
                 confirmButtonText: "Try Again"
             });
-            setError(errorMessage);
+            setError(errorMessage); 
         }
     };
+
+    // Show a loading message while fetching product data
+    if (loading) {
+        return <div className="text-center">Loading product details...</div>;
+    }
 
     return (
         <div className="container mx-auto mt-8 border bg-gray-200 border-gray-400 p-4">

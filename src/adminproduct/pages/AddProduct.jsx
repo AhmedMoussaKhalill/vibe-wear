@@ -19,40 +19,56 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Form validation for empty fields
         if (!name || !price || !description || !category || !imageUrl || !rate || !ratingCount) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "You should fill all data!",
+                text: "Please fill in all the fields!",
             });
             return;
-        } else {
-            Swal.fire({
-                title: "Product Added",
-                text: "Your product has been successfully added!",
-                icon: "success",
-            });
         }
 
         const newProduct = {
             name,
-            price: parseFloat(price), 
+            price: parseFloat(price), // Ensure price is a number
             description,
             category,
             imageUrl,
-            rate: parseFloat(rate), 
-            ratingCount: parseInt(ratingCount), 
+            rate: parseFloat(rate), // Ensure rate is a number
+            ratingCount: parseInt(ratingCount), // Ensure ratingCount is an integer
         };
 
         try {
             const response = await axios.post('/api/products', newProduct);
             console.log('Product added:', response.data);
+
+            // Show success message only when the request is successful
+            Swal.fire({
+                title: "Product Added",
+                text: "Your product has been successfully added!",
+                icon: "success",
+            });
+
+            setName('');
+            setPrice('');
+            setDescription('');
+            setCategory('');
+            setImageUrl('');
+            setRate('');
+            setRatingCount('');
         } catch (err) {
             console.error('Error adding product:', err);
+
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: err.response?.data?.message || "Failed to add product. Please try again.",
+            });
+
             setError('Failed to add product');
         }
     };
-
     return (
         <div className="container mx-auto mt-8 border bg-gray-200 border-gray-400 p-4">
             <div className="flex items-center mb-6">

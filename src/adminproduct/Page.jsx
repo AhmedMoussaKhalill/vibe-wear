@@ -12,7 +12,7 @@ const AdminProduct = () => {
       <Route path="product-list" element={<ProductList />} />
       <Route path="add-product" element={<AddProduct />} />
       <Route path="/admin-product/edit-product/:id" element={<EditProduct />} />
-      <Route path="view-product/:id" element={<ViewProduct />} />
+      <Route path="/admin-product/view-product/:id" element={<ViewProduct />} />
     </Routes>
   );
 };
