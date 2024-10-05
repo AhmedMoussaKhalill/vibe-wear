@@ -58,10 +58,10 @@ const writeProductsToFile = (products) => {
 
 // Function to get the next ID
 const getNextId = async () => {
-    const products = await readProductsFromFile();
-    const ids = products.map(p => p.id);
-    const maxId = Math.max(...ids);
-    return maxId + 1;
+    const products = await readProductsFromFile(); // Read existing products
+    if (products.length === 0) return 1; // Return 1 if no products exist
+    const lastProduct = products[products.length - 1]; // Get the last product
+    return lastProduct.id + 1; // Increment the ID
 };
 
 // Routes
@@ -84,6 +84,7 @@ app.get('/api/products/:id', async (req, res) => {
         }
         res.json(product);
     } catch (error) {
+        console.error('Error in /api/products/:id route:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
@@ -98,8 +99,9 @@ app.post('/api/products', async (req, res) => {
     }
 
     try {
-        const id = await getNextId(); // Get the next ID
-        const productToAdd = { id, ...newProduct }; // Create product with assigned ID
+        const id = await getNextId();
+        console.log('Generated ID:', id); // Debugging line
+        const productToAdd = { id, ...newProduct };
         const products = await readProductsFromFile();
         products.push(productToAdd);
         await writeProductsToFile(products);
@@ -111,27 +113,31 @@ app.post('/api/products', async (req, res) => {
 
 // PUT endpoint to update a product
 app.put('/api/products/:id', async (req, res) => {
-    const updatedProduct = req.body;
-    const { id } = req.params;
+    const { id } = req.params; // Get the product ID from the request parameters
+    const updatedProductData = req.body; // Get the updated product data from the request body
 
     // Basic validation
-    if (!updatedProduct.name || typeof updatedProduct.price !== 'number' || !updatedProduct.description) {
-        return res.status(400).json({ error: 'Invalid product data. Please ensure all fields are provided.' });
+    if (!updatedProductData.name || typeof updatedProductData.price !== 'number' || !updatedProductData.description) {
+        return res.status(400).json({ error: 'Invalid product data. Please ensure all fields are provided and valid.' });
     }
 
     try {
-        const products = await readProductsFromFile();
-        const index = products.findIndex(p => p.id === parseInt(id));
+        const products = await readProductsFromFile(); // Function to read products from your data source
+        const productIndex = products.findIndex(p => p.id === parseInt(id, 10)); // Find the index of the product by ID
 
-        if (index !== -1) {
-            products[index] = { id: parseInt(id), ...updatedProduct }; // Update the product
-            await writeProductsToFile(products); // Write back to the file
-            return res.status(200).json(products[index]); // Send the updated product back
-        } else {
-            return res.status(404).json({ error: 'Product not found' });
+        if (productIndex === -1) {
+            return res.status(404).json({ message: 'Product not found' }); // Handle product not found case
         }
+
+        // Update the product
+        products[productIndex] = { id: parseInt(id), ...updatedProductData };
+        
+        await writeProductsToFile(products); // Function to save the updated products back to the data source
+        
+        res.json(products[productIndex]); // Return the updated product
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        console.error('Error updating product:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
     }
 });
 

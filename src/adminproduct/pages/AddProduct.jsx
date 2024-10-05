@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
@@ -155,9 +155,15 @@ const AddProduct = () => {
                     />
                 </div>
 
-                <button type="submit" className="bg-black text-white px-4 py-2 rounded-lg">
-                    Add New Product
-                </button>
+                <div className="flex justify-center items-center mt-8 mb-10">
+                    <button
+                        type="submit"
+                        className="bg-black text-white px-6 py-2 rounded-lg transition duration-200 hover:bg-gray-800"
+                    >
+                        ADD NEW PRODUCT
+                    </button>
+                </div>
+
             </form>
         </div>
     );

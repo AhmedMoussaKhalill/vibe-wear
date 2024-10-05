@@ -1,4 +1,4 @@
-
+// productService.js
 import axios from 'axios';
 
 const updateProduct = async (id, productData) => {
@@ -14,5 +14,3 @@ const updateProduct = async (id, productData) => {
 export default {
     updateProduct,
 };
-
-

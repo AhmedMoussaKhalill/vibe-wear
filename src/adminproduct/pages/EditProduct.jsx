@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import productService from '../services/productService';
+import productService from '../services/productService'; // Ensure you have this service set up
 import { TextField } from '@mui/material';
 import Swal from 'sweetalert2';
+import axios from 'axios'; // Make sure Axios is imported
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -17,59 +18,54 @@ const EditProduct = () => {
         rate: '',
         ratingCount: '',
     });
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    console.log('Product ID:', id);
-
-// Fetch product data on mount
-useEffect(() => {
-    const fetchProduct = async () => {
-        console.log('Fetching product with ID:', id);        try {
-            const response = await fetch(`/api/products/${id}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch product');
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await fetch(`/api/products/${id}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch product');
+                }
+                const productData = await response.json();
+                setProduct(productData);
+            } catch (error) {
+                setError('Error fetching product');
+            } finally {
+                setLoading(false);
             }
-            const productData = await response.json();
-            setProduct(productData); 
-        } catch (error) {
-            setError('Error fetching product');
-        } finally {
-            setLoading(false);
-        }
-    };
+        };
 
-    fetchProduct();
-}, [id]);
-
+        fetchProduct();
+    }, [id]);
 
     // Handle product update
     const handleUpdate = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault(); // Prevent form submission
         try {
-            await productService.updateProduct(id, product);
+            const updatedProduct = await productService.updateProduct(id, product); // Call the update service
             Swal.fire({
                 title: "Product Updated",
                 text: "Your product has been successfully updated!",
                 icon: "success",
                 confirmButtonText: "Okay"
             });
-            navigate('/admin-product'); 
+            navigate('/admin-product'); // Redirect after update
         } catch (error) {
-            console.error('Error updating product:', error);
-            const errorMessage = error.response?.data?.message || "An error occurred while updating the product.";
+            console.error('Error updating product:', error); // Log error
+            const errorMessage = error.response?.data?.error || "An error occurred while updating the product."; // Set error message
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: errorMessage,
                 confirmButtonText: "Try Again"
             });
-            setError(errorMessage); 
+            setError(errorMessage); // Set error state
         }
     };
 
-    // Show a loading message while fetching product data
     if (loading) {
         return <div className="text-center">Loading product details...</div>;
     }
@@ -151,9 +147,14 @@ useEffect(() => {
                         fullWidth
                     />
                 </div>
-                <button type="submit" className="bg-black text-white px-4 py-2 rounded-lg">
-                    Edit Product
-                </button>
+                <div className="flex justify-center items-center mt-8 mb-10">
+                    <button
+                        type="submit"
+                        className="bg-black text-white px-6 py-2 rounded-lg transition duration-200 hover:bg-gray-800"
+                    >
+                        ADD NEW PRODUCT
+                    </button>
+                </div>
             </form>
         </div>
     );

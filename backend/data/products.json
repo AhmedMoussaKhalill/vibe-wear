@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "name": "111",
-    "price": 1.1111111111111111e+24,
-    "description": "111111111111111111111111111111",
-    "category": "11111111111111111111111",
-    "imageUrl": "11111111111111",
-    "rate": 1111111111111,
-    "ratingCount": 11111111111111112
+    "name": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+    "price": 109.95,
+    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+    "category": "men's clothing",
+    "imageUrl": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    "rate": 3.9,
+    "ratingCount": 120
   },
   {
     "id": 2,
-    "name": "55",
-    "price": 222,
-    "description": "22",
-    "category": "22",
-    "imageUrl": "22",
-    "rate": 222,
-    "ratingCount": 22
+    "name": "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
+    "price": 599,
+    "description": "21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz",
+    "category": "electronics",
+    "imageUrl": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
+    "rate": 2.9,
+    "ratingCount": 250
   },
   {
     "id": 3,
-    "name": "33",
-    "price": 33333333333333330000,
-    "description": "3333333333333333333333",
-    "category": "33333333333",
-    "imageUrl": "3333333333",
-    "rate": 3333333333333333,
-    "ratingCount": 333333333333333300
+    "name": "White Gold Plated Princess",
+    "price": 9.99,
+    "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
+    "category": "jewelery",
+    "imageUrl": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+    "rate": 3,
+    "ratingCount": 400
   },
   {
     "id": 4,
-    "name": "rr",
-    "price": 88,
-    "description": "8",
-    "category": "8",
-    "imageUrl": "8",
-    "rate": 88,
-    "ratingCount": 8
+    "name": "111",
+    "price": 1111,
+    "description": "1111",
+    "category": "11",
+    "imageUrl": "111",
+    "rate": 111,
+    "ratingCount": 111
   }
 ]
