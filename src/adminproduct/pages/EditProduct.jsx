@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import productService from '../services/productService'; // Ensure you have this service set up
 import { TextField } from '@mui/material';
 import Swal from 'sweetalert2';
-import axios from 'axios'; // Make sure Axios is imported
+import axios from 'axios'; 
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -22,6 +21,7 @@ const EditProduct = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Fetch product details on component load
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -41,28 +41,39 @@ const EditProduct = () => {
         fetchProduct();
     }, [id]);
 
-    // Handle product update
-    const handleUpdate = async (e) => {
-        e.preventDefault(); // Prevent form submission
+    // Function to update product details
+    const updateProduct = async (id, productData) => {
         try {
-            const updatedProduct = await productService.updateProduct(id, product); // Call the update service
+            const response = await axios.put(`/api/products/${id}`, productData);
+            return response.data;
+        } catch (error) {
+            console.error('Error in updateProduct:', error);
+            throw error;
+        }
+    };
+
+    // Handle product update on form submission
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const updatedProduct = await updateProduct(id, product);
             Swal.fire({
                 title: "Product Updated",
                 text: "Your product has been successfully updated!",
                 icon: "success",
                 confirmButtonText: "Okay"
             });
-            navigate('/admin-product'); // Redirect after update
+            navigate('/admin-product');
         } catch (error) {
-            console.error('Error updating product:', error); // Log error
-            const errorMessage = error.response?.data?.error || "An error occurred while updating the product."; // Set error message
+            console.error('Error updating product:', error);
+            const errorMessage = error.response?.data?.error || "An error occurred while updating the product.";
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: errorMessage,
                 confirmButtonText: "Try Again"
             });
-            setError(errorMessage); // Set error state
+            setError(errorMessage);
         }
     };
 

@@ -19,7 +19,6 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Form validation for empty fields
         if (!name || !price || !description || !category || !imageUrl || !rate || !ratingCount) {
             Swal.fire({
                 icon: "error",
@@ -31,19 +30,18 @@ const AddProduct = () => {
 
         const newProduct = {
             name,
-            price: parseFloat(price), // Ensure price is a number
+            price: parseFloat(price), 
             description,
             category,
             imageUrl,
-            rate: parseFloat(rate), // Ensure rate is a number
-            ratingCount: parseInt(ratingCount), // Ensure ratingCount is an integer
+            rate: parseFloat(rate),
+            ratingCount: parseInt(ratingCount), 
         };
 
         try {
             const response = await axios.post('/api/products', newProduct);
             console.log('Product added:', response.data);
 
-            // Show success message only when the request is successful
             Swal.fire({
                 title: "Product Added",
                 text: "Your product has been successfully added!",

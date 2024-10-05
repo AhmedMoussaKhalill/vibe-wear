@@ -10,6 +10,7 @@ app.use(express.json());
 // File path for products.json
 const filePath = path.join(__dirname, 'data', 'products.json');
 
+
 // Check if products.json exists and is valid
 console.log('Checking if products.json exists:', fs.existsSync(filePath));
 if (fs.existsSync(filePath)) {
@@ -24,6 +25,7 @@ if (fs.existsSync(filePath)) {
 } else {
     console.error('products.json does not exist');
 }
+
 
 // Function to read products from file
 const readProductsFromFile = () => {
@@ -43,6 +45,7 @@ const readProductsFromFile = () => {
     });
 };
 
+
 // Function to write products to file
 const writeProductsToFile = (products) => {
     return new Promise((resolve, reject) => {
@@ -56,7 +59,7 @@ const writeProductsToFile = (products) => {
     });
 };
 
-// Function to get the next ID
+// Function to get the next ID ,Because i find problem : first id is always = null
 const getNextId = async () => {
     const products = await readProductsFromFile(); // Read existing products
     if (products.length === 0) return 1; // Return 1 if no products exist
@@ -64,7 +67,7 @@ const getNextId = async () => {
     return lastProduct.id + 1; // Increment the ID
 };
 
-// Routes
+// GET endpoint to Read product
 app.get('/api/products', async (req, res) => {
     try {
         const products = await readProductsFromFile();
@@ -74,6 +77,7 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
+// GET endpoint to Read specific product by id
 app.get('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -93,19 +97,19 @@ app.get('/api/products/:id', async (req, res) => {
 app.post('/api/products', async (req, res) => {
     const newProduct = req.body;
 
-    // Basic validation
+    // simple validation
     if (!newProduct.name || typeof newProduct.price !== 'number' || !newProduct.description) {
         return res.status(400).json({ error: 'Invalid product data. Please ensure all fields are provided.' });
     }
 
     try {
         const id = await getNextId();
-        console.log('Generated ID:', id); // Debugging line
+        console.log('Generated ID:', id);
         const productToAdd = { id, ...newProduct };
         const products = await readProductsFromFile();
         products.push(productToAdd);
         await writeProductsToFile(products);
-        res.status(201).json(productToAdd); // Respond with the new product
+        res.status(201).json(productToAdd);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -113,27 +117,28 @@ app.post('/api/products', async (req, res) => {
 
 // PUT endpoint to update a product
 app.put('/api/products/:id', async (req, res) => {
-    const { id } = req.params; // Get the product ID from the request parameters
-    const updatedProductData = req.body; // Get the updated product data from the request body
+    const { id } = req.params;
+    const updatedProductData = req.body;
 
-    // Basic validation
+    // simple validation
     if (!updatedProductData.name || typeof updatedProductData.price !== 'number' || !updatedProductData.description) {
         return res.status(400).json({ error: 'Invalid product data. Please ensure all fields are provided and valid.' });
     }
 
     try {
-        const products = await readProductsFromFile(); // Function to read products from your data source
-        const productIndex = products.findIndex(p => p.id === parseInt(id, 10)); // Find the index of the product by ID
+        const products = await readProductsFromFile();
+        const productIndex = products.findIndex(p => p.id === parseInt(id, 10));
 
         if (productIndex === -1) {
-            return res.status(404).json({ message: 'Product not found' }); // Handle product not found case
+            return res.status(404).json({ message: 'Product not found' });
         }
+
 
         // Update the product
         products[productIndex] = { id: parseInt(id), ...updatedProductData };
-        
+
         await writeProductsToFile(products); // Function to save the updated products back to the data source
-        
+
         res.json(products[productIndex]); // Return the updated product
     } catch (error) {
         console.error('Error updating product:', error);
@@ -151,8 +156,8 @@ app.delete('/api/products/:id', async (req, res) => {
 
         if (index !== -1) {
             products.splice(index, 1); // Remove the product
-            await writeProductsToFile(products); // Write back to the file
-            return res.status(204).send(); // No content to send back
+            await writeProductsToFile(products);
+            return res.status(204).send();
         } else {
             return res.status(404).json({ error: 'Product not found' });
         }
@@ -162,7 +167,8 @@ app.delete('/api/products/:id', async (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

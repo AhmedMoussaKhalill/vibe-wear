@@ -14,10 +14,10 @@ function App() {
         <Route path="/admin-product/edit-product/:id" element={<EditProduct />} />
         <Route path="/admin-product/view-product/:id" element={<ViewProduct />} />
 
-        </Routes>
+      </Routes>
     </Router>
 
-    
+
   );
 }
 
