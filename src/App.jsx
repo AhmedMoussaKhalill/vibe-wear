@@ -1,13 +1,22 @@
-import React from "react";
-import Login from "./components/Login";
-const App = () => {
-  return <div className=" flex w-full h-screen">
-    <div className="w-full flex items-center justify-center lg:w-full bg-gray-100">
-    <Login/>
-    </div>
- 
-  
-    </div>;
-};
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import SignUp from './components/SignUp'; 
 
-export default App;
+function App() {
+  return (
+    <div className="flex h-screen w-full bg-gray-200">
+      <div className="flex w-full items-center justify-center bg-gray-300 lg:w-full">
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
+    </div>
+    </div>
+  );
+}
+
+export default App;
