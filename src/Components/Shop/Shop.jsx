@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./shop.css";
+import "./Shop.css";
 import Card from "../Card/Card";
 function Shop({ CartArray, setCartArray }) {
   let cards = [
