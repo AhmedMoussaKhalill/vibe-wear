@@ -41,7 +41,7 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
               Account Info
             </CardTitle>
 
-            <div className="gap-x-3 flex">
+            <div className="flex gap-x-3">
               <Button
                 onClick={handleEditToggle}
                 variant="outline"
@@ -55,7 +55,9 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                   </>
                 )}
               </Button>
-              {isEditing && <Button className="rounded-lg">Save Changes</Button>}
+              {isEditing && (
+                <Button className="rounded-lg">Save Changes</Button>
+              )}
             </div>
           </div>
           <CardDescription>
@@ -70,7 +72,9 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                   src="/placeholder.svg?height=128&width=128"
                   alt={"Ahmed Moussa"}
                 />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarFallback>
+                  {userDetails?.name.slice(0, 2).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
               <Badge className="rounded-full px-3.5">{userDetails?.role}</Badge>
             </div>
@@ -88,6 +92,9 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                     Your Name
                   </label>
                   <Input
+                    onChange={(e) =>
+                      setUserDetails({ ...userDetails, name: e.target.value })
+                    }
                     value={userDetails?.name}
                     id="username"
                     className="h-10 rounded-lg"
@@ -99,6 +106,9 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                     Your Email
                   </label>
                   <Input
+                    onChange={(e) =>
+                      setUserDetails({ ...userDetails, email: e.target.value })
+                    }
                     value={userDetails?.email}
                     id="username"
                     className="h-10 rounded-lg"
@@ -109,11 +119,6 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                   <label htmlFor="" className="text-sm">
                     Your Gender
                   </label>
-                  {/* <Input
-                    value={userDetails?.gender}
-                    id="username"
-                    className="h-10 rounded-lg"
-                  /> */}
                   <Select
                     onValueChange={handleSelectChange}
                     defaultValue={userDetails?.gender}
@@ -134,6 +139,12 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                     Your Password
                   </label>
                   <Input
+                    onChange={(e) =>
+                      setUserDetails({
+                        ...userDetails,
+                        password: e.target.value,
+                      })
+                    }
                     value={userDetails?.password}
                     type="password"
                     id="username"

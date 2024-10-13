@@ -6,11 +6,11 @@ import { Link, useLocation } from "react-router-dom";
 const SideBar = () => {
   const location = useLocation();
   return (
-    <aside className="fixed left-0 z-20 h-full w-52 bg-[#1d2129] px-5 py-4 dark:bg-muted">
+    <aside className="fixed left-0 z-20 h-full w-52 bg-black px-5 py-4 dark:bg-[#111827]">
       <div className="flex flex-col space-y-5">
         <div className="logo flex items-baseline gap-x-1 text-3xl font-bold text-white">
           Vibe Wear <div className="rounded-full bg-[#e86f51] p-[3px]" />
-        </div>{" "}
+        </div>
         <Separator className="w-full bg-gray-700" />
         <div className="text-[#d4d4d4]">Menu</div>
         <div className="flex flex-col space-y-4">
@@ -54,12 +54,12 @@ const sideBarLinks = [
   },
   {
     label: "Members",
-    route: "/members",
+    route: "/admin/members",
     icon: <Icons.users className="size-[22px]" />,
   },
   {
     label: "Products",
-    route: "/chat",
+    route: "/admin/products",
     icon: <Icons.shop className="size-[22px]" />,
   },
 ];
