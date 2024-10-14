@@ -9,7 +9,7 @@ import NotFound from "./pages/404";
 
 const App = () => {
   const [users, setUsers] = useState([]);
-  const [logged, setLogged] = useState(true);
+  const [logged, setLogged] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
 
 
