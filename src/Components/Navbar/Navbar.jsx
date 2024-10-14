@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Button } from "@/components/ui/button";
