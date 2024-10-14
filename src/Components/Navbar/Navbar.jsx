@@ -14,7 +14,7 @@ function Navbar({ logged, setLogged, userDetails }) {
   useEffect(() => {
     const checkCartLength = () => {
       const cartArray = JSON.parse(localStorage.getItem("CartArray")) || [];
-      console.log(cartArray.length);
+      // console.log(cartArray.length);
     };
     checkCartLength();
     const intervalId = setInterval(checkCartLength, 3000);
