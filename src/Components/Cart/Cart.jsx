@@ -3,9 +3,9 @@ import "./Cart.css";
 import CartProduct from "../CartProduct/CartProduct";
 function Cart({ CartArray, setCartArray }) {
   let totalPrice = 0;
-  for (let i = 0; i < CartArray.length; i++) {
-    totalPrice += CartArray[i].price * CartArray[i].count;
-  }
+  // for (let i = 0; i < CartArray.length; i++) {
+  //   totalPrice += CartArray[i].price * CartArray[i].count;
+  // }
   const [Total, setTotal] = useState(0);
 
   return (
