@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Button } from "./components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import "./components/mode-toggle.jsx";
-import "./components/user/UserMenu.jsx";
+import UserMenu from "@/components/user/UserMenu";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 function Navbar({ logged, setLogged, userDetails }) {
