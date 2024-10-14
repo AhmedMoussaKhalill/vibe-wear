@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { ThemeProvider } from "@material-tailwind/react";
 import { BrowserRouter } from "react-router-dom";
-import { ModeThemeProvider } from "./components/theme-provider.jsx";
+import { ModeThemeProvider } from "@/components/theme-provider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
