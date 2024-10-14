@@ -1,8 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { ModeToggle } from '@/components/mode-toggle'
+import { ModeToggle } from "@/components/mode-toggle";
 import UserMenu from "@/components/user/UserMenu";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -22,7 +23,7 @@ function Navbar({ logged, setLogged, userDetails }) {
   return (
     <nav className="">
       <div className="container-xl py-3">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="col-lg-3 col-md-6">
             <Link to={""} className="text-2xl">
               <div className="flex select-none items-baseline gap-x-1 text-3xl font-bold">
@@ -59,6 +60,8 @@ function Navbar({ logged, setLogged, userDetails }) {
           </div>
           <div className="col-lg-3 col-md-12 mt-lg-0 mt-3">
             <div className="flex items-center gap-x-5">
+              <ModeToggle />
+
               <div
                 className="btn btn-green btn-font position-relative px-4 py-2"
                 onClick={() => {
@@ -87,13 +90,12 @@ function Navbar({ logged, setLogged, userDetails }) {
                     <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
                   </svg>
                 </Link>
-              </div>        
-              <ModeToggle />
-                {logged ? (
+              </div>
+              {logged ? (
                 <UserMenu setLogged={setLogged} userDetails={userDetails} />
               ) : (
                 <Link to="/login">
-                  <Button className="group gap-x-1.5 rounded-lg px-5">
+                  <Button size="lg" className="group gap-x-1.5 rounded-lg">
                     Login
                     <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
                   </Button>
@@ -108,5 +110,3 @@ function Navbar({ logged, setLogged, userDetails }) {
 }
 
 export default Navbar;
-
-
