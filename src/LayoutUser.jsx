@@ -2,7 +2,7 @@ import React from "react";
 import UserHeader from "./components/user/UserHeader";
 import UserProfile from "./pages/UserProfile";
 import Home from "./Components/Home/Home";
-import Footer from ".Components/Footer/Footer";
+import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
 import Shop from "./Components/Shop/Shop";
 import Cart from "./Components/Cart/Cart";
