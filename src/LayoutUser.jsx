@@ -3,7 +3,6 @@ import UserHeader from "./components/user/UserHeader";
 import UserProfile from "./pages/UserProfile";
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
-import Footer from "./Components/Footer/Footer";
 import Shop from "./Components/Shop/Shop";
 import Cart from "./Components/Cart/Cart";
 import { Route, Routes, Outlet } from "react-router-dom";
@@ -18,8 +17,6 @@ const LayoutUser = ({ users, logged, setLogged, userDetails, setUserDetails, Car
         setLogged={setLogged}
         userDetails={userDetails} 
         />
-        <Outlet />
-        <Footer />
       <Routes>
         <Route
           path="/"
