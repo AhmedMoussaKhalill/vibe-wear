@@ -10,7 +10,7 @@ import NotFound from "./pages/404";
 const App = () => {
   const [users, setUsers] = useState([]);
   const [logged, setLogged] = useState(false);
-  const [userDetails, setUserDetails] = useState(null);
+  const [userDetails, setUserDetails] = useState();
 
 
   let [CartArray, setCartArray] = useState(
