@@ -57,7 +57,7 @@ function Navbar({ logged, setLogged, userDetails }) {
               </h4>
             </div>
           </div>
-          <div className="col-lg-3 col-md-12 mt-lg-0 mt-3">
+          <div className="flex items-center space-x-6">
             <div className="row justify-content-end">
               <h4
                 className="btn btn-green btn-font position-relative px-4 py-2"
@@ -87,8 +87,9 @@ function Navbar({ logged, setLogged, userDetails }) {
                     <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
                   </svg>
                 </Link>
-              </h4>
-              {logged ? (
+              </h4>        
+              <ModeToggle />
+                {logged ? (
                 <UserMenu setLogged={setLogged} userDetails={userDetails} />
               ) : (
                 <Link to="/login">
@@ -98,7 +99,6 @@ function Navbar({ logged, setLogged, userDetails }) {
                   </Button>
                 </Link>
               )}
-              <ModeToggle />
             </div>
           </div>
         </div>
@@ -108,3 +108,4 @@ function Navbar({ logged, setLogged, userDetails }) {
 }
 
 export default Navbar;
+
