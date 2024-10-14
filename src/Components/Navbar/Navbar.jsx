@@ -21,7 +21,7 @@ function Navbar() {
         <div className="row justify-content-between align-items-center">
           <div className="col-lg-3 col-md-6">
             <Link to={""}>
-              <img src="./public/logo.png" alt="" />
+              <img src="/logo.png" alt="" />
             </Link>
           </div>
           <div className="col-lg-3 col-md-6">

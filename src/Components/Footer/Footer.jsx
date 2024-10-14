@@ -10,12 +10,12 @@ function Footer() {
         <div className="row">
           <div className="col-lg-4 col-md-12 mb-lg-0 mb-3">
             <div className="flex-column footer-head flex">
-              <img src="./public/footer-logo.png" className="" alt="" />
+              <img src="/footer-logo.png" className="" alt="" />
               <p className="my-3">
                 The customer is at the heart of our unique bussiness model,
                 which includes design.
               </p>
-              <img src="./public/payment.png" alt="" />
+              <img src="/payment.png" alt="" />
             </div>
           </div>
           <div className="col-lg-4 col-md-5 mb-lg-0 mb-3">
@@ -47,14 +47,14 @@ function Footer() {
                   </li>
                   <li>
                     <div className="row client">
-                      <img src="./public/client-1.png" alt="" />
-                      <img src="./public/client-3.png" alt="" />
+                      <img src="/client-1.png" alt="" />
+                      <img src="/client-3.png" alt="" />
                     </div>
                   </li>
                   <li>
                     <div className="row client">
-                      <img src="./public/client-4.png" alt="" />
-                      <img src="./public/client-5.png" alt="" />
+                      <img src="/client-4.png" alt="" />
+                      <img src="/client-5.png" alt="" />
                     </div>
                   </li>
                 </ul>
