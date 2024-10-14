@@ -1,6 +1,7 @@
 import React from "react";
 import UserHeader from "./components/user/UserHeader";
 import UserProfile from "./pages/UserProfile";
+import Home from "./Components/Home/Home";
 import Shop from "./Components/Shop/Shop";
 import Cart from "./Components/Cart/Cart";
 import { Route, Routes } from "react-router-dom";
@@ -15,6 +16,10 @@ const LayoutUser = ({ users, logged, setLogged, userDetails, setUserDetails, Car
         userDetails={userDetails}
       />
       <Routes>
+        <Route
+          path="/"
+          element={<Home />}
+        />
         <Route
           path="/profile"
           element={logged && <UserProfile userDetails={userDetails} setUserDetails={setUserDetails} />}
