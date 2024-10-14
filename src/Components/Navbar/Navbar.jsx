@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Navigation } from "lucide-react";
+import { Button } from "./components/ui/button";
+import { ArrowRight } from "lucide-react";
 import "./components/mode-toggle.jsx";
 import "./components/user/UserMenu.jsx";
 
