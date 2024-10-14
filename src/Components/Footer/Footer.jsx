@@ -86,7 +86,7 @@ function Footer() {
         <div className="row justify-content-center pt-4">
           <div className="col-6 text-center">
             <h3 className="copyWrite text-white">
-              © Designed by HISHAM_KHALIL
+              © Designed by Vibe Wear
             </h3>
           </div>
         </div>
