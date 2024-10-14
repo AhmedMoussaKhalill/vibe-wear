@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ModeToggle } from "../mode-toggle";
 import "./Navbar.css";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -22,7 +21,7 @@ function Navbar() {
         <div className="row justify-content-between align-items-center">
           <div className="col-lg-3 col-md-6">
             <Link to={""}>
-              <img src="/logo.png" alt="" />
+              <img src="./public/logo.png" alt="" />
             </Link>
           </div>
           <div className="col-lg-3 col-md-6">
@@ -62,7 +61,7 @@ function Navbar() {
                 }}
               >
                 <span className="position-absolute bg-danger rounded-circle circlaya h-6 w-6 pt-1">
-                  {JSON.parse(localStorage.getItem("CartArray"))?.length}
+                  {JSON.parse(localStorage.getItem("CartArray")).length}
                 </span>
                 <Link to={"cart"}>
                   <svg
@@ -84,7 +83,23 @@ function Navbar() {
                 </Link>
               </h4>
               <h4 className="btn btn-green btn-font mx-4 px-4 py-2">Login</h4>
-              <ModeToggle />
+              <h4 className="btn btn-moon position-relative px-3 py-2">
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    strokeWidth="0"
+                    viewBox="0 0 24 24"
+                    className="text-mainWhite h-5 w-5"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"></path>
+                  </svg>
+                </span>
+              </h4>
             </div>
           </div>
         </div>
