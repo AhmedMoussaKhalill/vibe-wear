@@ -59,7 +59,7 @@ function Navbar({ logged, setLogged, userDetails }) {
             </div>
           </div>
           <div className="col-lg-3 col-md-12 mt-lg-0 mt-3">
-            <div className="flex items-center gap-x-5">
+            <div className="flex items-center gap-x-7">
               <ModeToggle />
 
               <div
@@ -95,7 +95,7 @@ function Navbar({ logged, setLogged, userDetails }) {
                 <UserMenu setLogged={setLogged} userDetails={userDetails} />
               ) : (
                 <Link to="/login">
-                  <Button size="lg" className="group gap-x-1.5 rounded-lg">
+                  <Button size="lg" className="group gap-x-1.5 rounded-lg bg-[#14532d]">
                     Login
                     <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
                   </Button>
