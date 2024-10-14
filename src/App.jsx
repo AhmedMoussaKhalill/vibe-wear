@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, Routes } from "react-router-dom";
 import LayoutUser from "./LayoutUser";
 import LayoutAdmin from "./LayoutAdmin";
-import axios from "axios";
+import Layout from "./Components/Layout/Layout";
+import Home from "./Components/Home/Home";
+import Shop from "./Components/Shop/Shop";
+import Cart from "./Components/Cart/Cart";
 import NotFound from "./pages/404";
+import axios from "axios";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./App.css";
 
 const App = () => {
   const [users, setUsers] = useState([]);
   const [logged, setLogged] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [CartArray, setCartArray] = useState(
+    JSON.parse(localStorage.getItem("CartArray")) || []
+  );
 
   const getUsers = () => {
     axios({
@@ -34,7 +43,25 @@ const App = () => {
 
   useEffect(() => {
     getUsers();
-  });
+  }, []);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { path: "", element: <Home /> },
+        {
+          path: "shop",
+          element: <Shop CartArray={CartArray} setCartArray={setCartArray} />,
+        },
+        {
+          path: "cart",
+          element: <Cart CartArray={CartArray} setCartArray={setCartArray} />,
+        },
+      ],
+    },
+  ]);
 
   return (
     <div>
@@ -54,7 +81,7 @@ const App = () => {
         <Route
           path="/admin/*"
           element={
-            userDetails?.role == "admin" ? (
+            userDetails?.role === "admin" ? (
               <LayoutAdmin users={users} userDetails={userDetails} setLogged={setLogged} />
             ) : (
               <NotFound />
@@ -62,6 +89,7 @@ const App = () => {
           }
         />
       </Routes>
+      <RouterProvider router={router} />
     </div>
   );
 };
