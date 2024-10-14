@@ -57,7 +57,7 @@ function Navbar({ logged, setLogged, userDetails }) {
               </h4>
             </div>
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="col-lg-3 col-md-12 mt-lg-0 mt-3">
             <div className="row justify-content-end">
               <h4
                 className="btn btn-green btn-font position-relative px-4 py-2"
