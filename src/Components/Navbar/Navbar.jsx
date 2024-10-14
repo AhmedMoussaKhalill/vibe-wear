@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import "./components/mode-toggle.jsx";
+import { ModeToggle } from '@/components/mode-toggle'
 import UserMenu from "@/components/user/UserMenu";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
