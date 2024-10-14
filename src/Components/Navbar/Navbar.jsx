@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Button } from "@/components/ui/button";
@@ -22,7 +26,7 @@ function Navbar({ logged, setLogged, userDetails }) {
   return (
     <nav className="">
       <div className="container-xl py-3">
-        <div className="row justify-content-between align-items-center">
+        <div className="flex justify-between items-center">
           <div className="col-lg-3 col-md-6">
             <Link to={""} className="text-2xl">
               <div className="flex select-none items-baseline gap-x-1 text-3xl font-bold">
@@ -58,8 +62,8 @@ function Navbar({ logged, setLogged, userDetails }) {
             </div>
           </div>
           <div className="col-lg-3 col-md-12 mt-lg-0 mt-3">
-            <div className="row justify-content-end">
-              <h4
+            <div className="flex items-center gap-x-5">
+              <div
                 className="btn btn-green btn-font position-relative px-4 py-2"
                 onClick={() => {
                   setcurrentPath("/cart");
@@ -87,7 +91,7 @@ function Navbar({ logged, setLogged, userDetails }) {
                     <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
                   </svg>
                 </Link>
-              </h4>        
+              </div>        
               <ModeToggle />
                 {logged ? (
                 <UserMenu setLogged={setLogged} userDetails={userDetails} />
@@ -108,4 +112,5 @@ function Navbar({ logged, setLogged, userDetails }) {
 }
 
 export default Navbar;
+
 
