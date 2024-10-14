@@ -61,7 +61,7 @@ function Navbar() {
                 }}
               >
                 <span className="position-absolute bg-danger rounded-circle circlaya h-6 w-6 pt-1">
-                  {JSON.parse(localStorage.getItem("CartArray")).length}
+                  {JSON.parse(localStorage.getItem("CartArray"))?.length}
                 </span>
                 <Link to={"cart"}>
                   <svg
