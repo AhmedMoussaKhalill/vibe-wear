@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Button } from "@/components/ui/button";
@@ -70,7 +69,9 @@ function Navbar({ logged, setLogged, userDetails }) {
                 }}
               >
                 <span className="position-absolute bg-danger rounded-circle circlaya h-6 w-6 pt-1">
-                  {JSON.parse(localStorage.getItem("CartArray")).length}
+                  {JSON.parse(localStorage.getItem("CartArray"))?.length
+                    ? JSON.parse(localStorage.getItem("CartArray")).length
+                    : 0}
                 </span>
                 <Link to={"cart"}>
                   <svg
@@ -95,7 +96,10 @@ function Navbar({ logged, setLogged, userDetails }) {
                 <UserMenu setLogged={setLogged} userDetails={userDetails} />
               ) : (
                 <Link to="/login">
-                  <Button size="lg" className="group gap-x-1.5 rounded-lg bg-[#14532d]">
+                  <Button
+                    size="lg"
+                    className="group gap-x-1.5 rounded-lg bg-[#14532d]"
+                  >
                     Login
                     <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
                   </Button>

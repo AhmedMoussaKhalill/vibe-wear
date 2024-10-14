@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserHeader from "./components/user/UserHeader";
 import UserProfile from "./pages/UserProfile";
 import Home from "./Components/Home/Home";
@@ -10,26 +10,51 @@ import { Route, Routes, Outlet } from "react-router-dom";
 
 import Login from "./pages/Login";
 
-const LayoutUser = ({ users, logged, setLogged, userDetails, setUserDetails, CartArray, setCartArray }) => {
+const LayoutUser = ({
+  users,
+  logged,
+  setLogged,
+  userDetails,
+  setUserDetails,
+  CartArray,
+  setCartArray,
+}) => {
+  const [cards, setCards] = useState([]);
+  async function GETAPI() {
+    let myCards = await fetch("/db.json");
+    myCards = await myCards.json();
+    myCards = myCards.products;
+    setCards(myCards);
+    console.log(cards);
+  }
+  useEffect(() => {
+    GETAPI();
+  }, []);
   return (
     <div>
-      <Navbar  
-        logged={logged}
-        setLogged={setLogged}
-        userDetails={userDetails} 
-        />
+      <Navbar logged={logged} setLogged={setLogged} userDetails={userDetails} />
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
         <Route
           path="/profile"
-          element={logged && <UserProfile userDetails={userDetails} setUserDetails={setUserDetails} />}
+          element={
+            logged && (
+              <UserProfile
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
+              />
+            )
+          }
         />
         <Route
           path="/shop"
-          element={<Shop CartArray={CartArray} setCartArray={setCartArray} />}
+          element={
+            <Shop
+              cards={cards}
+              CartArray={CartArray}
+              setCartArray={setCartArray}
+            />
+          }
         />
         <Route
           path="/cart"

@@ -3,12 +3,14 @@ import "./Card.css";
 import Star from "../Star/Star";
 import { useLocation, useNavigate } from "react-router-dom";
 function Card({ card, setCartArray, CartArray }) {
+  console.log(card);
+
   localStorage.setItem("CartArray", JSON.stringify(CartArray));
   const location = useLocation();
   const navigate = useNavigate();
   let [currentPath, setcurrentPath] = useState(location.pathname);
 
-  const rating = parseInt(card.rate);
+  const rating = parseInt(card.rating.rate);
   let colorStars = [];
   let solidStars = [];
   for (let i = 0; i < rating; i++) {
@@ -22,7 +24,7 @@ function Card({ card, setCartArray, CartArray }) {
     <div className="col-xl-3 col-lg-4 col-md-6 my-3">
       <div className="mx-auto flex w-72 flex-col items-center justify-center rounded-xl bg-blue-gray-200 pt-2 shadow-md duration-500 hover:scale-105 hover:shadow-xl lg:w-72">
         <img
-          src={card.img}
+          src={card.image}
           alt="Product"
           className="h-[10em] w-[10em] rounded-t-xl object-contain"
         />
@@ -74,7 +76,7 @@ function Card({ card, setCartArray, CartArray }) {
           <div className="flex items-center justify-center gap-3">
             <div className="flex items-center justify-center gap-2">
               <span className="text-mainGreyDark border-b-2 border-blue-gray-500">
-                {card.rate}
+                {card.rating.rate}
               </span>
               <div className="inline-flex items-center">
                 {colorStars.map((val, id) => (
@@ -86,7 +88,7 @@ function Card({ card, setCartArray, CartArray }) {
               </div>
             </div>
             <p className="text-mainGreyDark font-small review review block text-center font-sans text-sm leading-normal antialiased">
-              Based on {card.reviews} Reviews
+              Based on {card.rating.count} Reviews
             </p>
           </div>
         </div>

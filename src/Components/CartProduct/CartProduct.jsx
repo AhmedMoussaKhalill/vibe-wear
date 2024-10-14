@@ -21,7 +21,7 @@ function CartProduct({ cart, CartArray, setCartArray, setTotal, Total }) {
                   <div className="flex items-center">
                     <img
                       className="mr-4 h-16 w-16"
-                      src={cart.img}
+                      src={cart.image}
                       alt="Product image"
                     />
                     <span className="flex-grow text-left font-semibold">
