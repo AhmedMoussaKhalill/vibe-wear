@@ -21,7 +21,7 @@ const LayoutUser = ({ users, logged, setLogged, userDetails, setUserDetails, Car
         />
         <Route
           path="/shop"
-          element={<Shop CartArray={CartArray} setCartArray={setCartArray} /> />}
+          element={<Shop CartArray={CartArray} setCartArray={setCartArray} />}
         />
         <Route
           path="/cart"
