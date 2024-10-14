@@ -1,6 +1,5 @@
 import React from "react";
 import Star from "../Star/Star";
-import Footer from "../Footer/Footer";
 import "./Home.css";
 function Home() {
   return (
@@ -241,7 +240,6 @@ function Home() {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 }
