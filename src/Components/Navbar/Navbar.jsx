@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
+import "./components/mode-toggle.jsx";
+import "./components/user/UserMenu.jsx";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-function Navbar() {
+function Navbar({logged, setLogged, userDetails}) {
   const location = useLocation();
   const navigate = useNavigate();
   let [currentPath, setcurrentPath] = useState(location.pathname);
@@ -20,8 +22,10 @@ function Navbar() {
       <div className="container-xl py-3">
         <div className="row justify-content-between align-items-center">
           <div className="col-lg-3 col-md-6">
-            <Link to={""}>
-              <img src="./public/logo.png" alt="" />
+            <Link to={""}  className="text-2xl" >
+              <div className="flex select-none items-baseline gap-x-1 text-3xl font-bold">
+            Vibe Wear <div className="rounded-full bg-[#e86f51] p-[3px]" />
+          </div>
             </Link>
           </div>
           <div className="col-lg-3 col-md-6">
@@ -82,24 +86,18 @@ function Navbar() {
                   </svg>
                 </Link>
               </h4>
-              <h4 className="btn btn-green btn-font mx-4 px-4 py-2">Login</h4>
-              <h4 className="btn btn-moon position-relative px-3 py-2">
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-                  <svg
-                    stroke="currentColor"
-                    fill="currentColor"
-                    strokeWidth="0"
-                    viewBox="0 0 24 24"
-                    className="text-mainWhite h-5 w-5"
-                    height="1em"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"></path>
-                  </svg>
-                </span>
-              </h4>
+ {logged ? (
+            <UserMenu setLogged={setLogged} userDetails={userDetails} />
+          ) : (
+            <Link to="/login">
+              <Button className="group gap-x-1.5 rounded-lg px-5">
+                Login
+                <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          )}
+          <ModeToggle />
+
             </div>
           </div>
         </div>
