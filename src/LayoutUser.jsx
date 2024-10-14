@@ -21,7 +21,7 @@ const LayoutUser = ({
 }) => {
   const [cards, setCards] = useState([]);
   async function GETAPI() {
-    let myCards = await fetch("../db.json");
+    let myCards = await fetch("/db.json");
     myCards = await myCards.json();
     myCards = myCards.products;
     setCards(myCards);
