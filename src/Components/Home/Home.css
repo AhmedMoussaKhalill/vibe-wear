@@ -1,8 +1,8 @@
 .bg-main {
-  background-image: url("./public/bg-home.jpg");
+  background-image: url("./bg-home.jpg");
 }
 .bg-hero {
-  background-image: url(./public/hero-1.jpg);
+  background-image: url(./hero-1.jpg);
   background-size: cover;
   background-position: left;
   height: 100vh;
