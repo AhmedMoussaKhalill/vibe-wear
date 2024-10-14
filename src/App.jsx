@@ -13,9 +13,9 @@ const App = () => {
   const [userDetails, setUserDetails] = useState(null);
 
 
-  let [CartArray, setCartArray] = useState(
-    JSON.parse(localStorage.getItem("CartArray")) || [],
-  );
+  // let [CartArray, setCartArray] = useState(
+  //   JSON.parse(localStorage.getItem("CartArray")) || [],
+  // );
   
   const getUsers = () => {
     axios({
