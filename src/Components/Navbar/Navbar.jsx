@@ -4,7 +4,7 @@ import "./components/mode-toggle.jsx";
 import "./components/user/UserMenu.jsx";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
-function Navbar({logged, setLogged, userDetails}) {
+function Navbar({ logged, setLogged, userDetails }) {
   const location = useLocation();
   const navigate = useNavigate();
   let [currentPath, setcurrentPath] = useState(location.pathname);
@@ -22,10 +22,10 @@ function Navbar({logged, setLogged, userDetails}) {
       <div className="container-xl py-3">
         <div className="row justify-content-between align-items-center">
           <div className="col-lg-3 col-md-6">
-            <Link to={""}  className="text-2xl" >
+            <Link to={""} className="text-2xl">
               <div className="flex select-none items-baseline gap-x-1 text-3xl font-bold">
-            Vibe Wear <div className="rounded-full bg-[#e86f51] p-[3px]" />
-          </div>
+                Vibe Wear <div className="rounded-full bg-[#e86f51] p-[3px]" />
+              </div>
             </Link>
           </div>
           <div className="col-lg-3 col-md-6">
@@ -86,18 +86,17 @@ function Navbar({logged, setLogged, userDetails}) {
                   </svg>
                 </Link>
               </h4>
- {logged ? (
-            <UserMenu setLogged={setLogged} userDetails={userDetails} />
-          ) : (
-            <Link to="/login">
-              <Button className="group gap-x-1.5 rounded-lg px-5">
-                Login
-                <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          )}
-          <ModeToggle />
-
+              {logged ? (
+                <UserMenu setLogged={setLogged} userDetails={userDetails} />
+              ) : (
+                <Link to="/login">
+                  <Button className="group gap-x-1.5 rounded-lg px-5">
+                    Login
+                    <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+              )}
+              <ModeToggle />
             </div>
           </div>
         </div>
