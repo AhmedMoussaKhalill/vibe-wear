@@ -3,17 +3,23 @@ import UserHeader from "./components/user/UserHeader";
 import UserProfile from "./pages/UserProfile";
 import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
 import Shop from "./Components/Shop/Shop";
 import Cart from "./Components/Cart/Cart";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
+
 import Login from "./pages/Login";
 
 const LayoutUser = ({ users, logged, setLogged, userDetails, setUserDetails, CartArray, setCartArray }) => {
   return (
     <div>
-      <Navbar  logged={logged}
+      <Navbar  
+        logged={logged}
         setLogged={setLogged}
-        userDetails={userDetails} />
+        userDetails={userDetails} 
+        />
+        <Outlet />
+        <Footer />
       <Routes>
         <Route
           path="/"
