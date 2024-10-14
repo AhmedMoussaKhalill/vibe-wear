@@ -22,7 +22,7 @@ const UserMenu = ({ setLogged, userDetails }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <Link to="/profile">
-          <DropdownMenuItem>Welcome</DropdownMenuItem>
+          <DropdownMenuItem>Welcome Ahmed</DropdownMenuItem>
         </Link>
         {userDetails?.role == "admin" && (
           <Link to="/admin">
