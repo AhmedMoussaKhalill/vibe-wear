@@ -35,7 +35,7 @@ function Home() {
       <div className="bg-mainWhite w-full pb-10 lg:relative lg:h-[150vh]">
         <div className="flex flex-col items-center gap-4 p-3 lg:static lg:h-[150vh] lg:p-0">
           <div className="lg:absolute lg:left-[20vh] lg:top-[50vh] lg:z-10">
-            <img src="./public/banner-2.jpg" alt="" />
+            <img src="/banner-2.jpg" alt="" />
           </div>
           <div className="lg:absolute lg:left-[20vh] lg:top-[120vh] lg:z-20">
             <div className="flex w-fit flex-col items-start">
@@ -46,7 +46,7 @@ function Home() {
             </div>
           </div>
           <div className="lg:absolute lg:right-[20vh] lg:top-[10vh] lg:z-10">
-            <img src="./public/banner-1.jpg" alt="" />
+            <img src="/banner-1.jpg" alt="" />
           </div>
           <div className="lg:absolute lg:left-[80vh] lg:top-[25vh] lg:z-20">
             <div className="flex w-fit flex-col items-start">
@@ -60,7 +60,7 @@ function Home() {
             </div>
           </div>
           <div className="lg:absolute lg:right-[18vh] lg:top-[80vh] lg:z-10">
-            <img src="./public/banner-3.jpg" alt="" />
+            <img src="/banner-3.jpg" alt="" />
           </div>
           <div className="lg:absolute lg:left-[95vh] lg:top-[90vh] lg:z-20">
             <div className="flex w-fit flex-col items-start">
