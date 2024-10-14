@@ -12,10 +12,9 @@ const App = () => {
   const [logged, setLogged] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
 
-
-  // let [CartArray, setCartArray] = useState(
-  //   JSON.parse(localStorage.getItem("CartArray")) || [],
-  // );
+ const [CartArray, setCartArray] = useState(
+    JSON.parse(localStorage.getItem("CartArray")) || [],
+  );
   
   const getUsers = () => {
     axios({
