@@ -42,6 +42,7 @@ const ViewProduct = () => {
   }
 
   return (
+    <div className="pl-52">
     <div className="mt-32 border bg-gray-300 container mx-auto p-6 flex flex-col md:flex-row items-start space-y-6 md:space-y-0 md:space-x-6">
       <img
         src={product.image}
@@ -55,7 +56,7 @@ const ViewProduct = () => {
         <h2 className="text-3xl font-bold mb-2">{product.title}</h2>
         <p className="text-gray-500 mb-4">{product.description}</p>
 
-        <Link to="/admin-product" className="mt-4 block">
+        <Link to="/admin/admin-product" className="mt-4 block">
           <button className="bg-black text-white py-2 px-8 rounded-lg hover:bg-gray-800 transition duration-200">
             Back to Products
           </button>
@@ -75,6 +76,7 @@ const ViewProduct = () => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };
