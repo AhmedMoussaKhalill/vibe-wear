@@ -86,6 +86,7 @@ const AddProduct = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         fullWidth
+                        
                     />
                     <TextField
                         id="product-price"
