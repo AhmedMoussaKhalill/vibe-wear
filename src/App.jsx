@@ -19,7 +19,7 @@ const App = () => {
   const getUsers = () => {
     axios({
       method: "get",
-      url: "http://localhost:3000/users",
+      url: process.env.VITE_USERS_API,
     }).then(({ data }) => setUsers(data));
   };
   
@@ -27,7 +27,7 @@ const App = () => {
   const getUserDetails = () => {
     axios({
       method: "get",
-      url: `http://localhost:3000/users/${localStorage.ck}`,
+      url: process.env.VITE_USERS_API + `/${localStorage.ck}`,
     }).then(({ data }) => setUserDetails(data));
   };
 
