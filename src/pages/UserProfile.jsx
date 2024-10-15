@@ -49,7 +49,6 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
       }
     });
   };
-
   return (
     <div className="mx-auto max-w-7xl px-5 py-14">
       <Card className="mx-auto max-w-5xl pb-3">

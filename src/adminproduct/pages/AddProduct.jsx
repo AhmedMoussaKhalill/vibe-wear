@@ -7,11 +7,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const AddProduct = () => {
-    const [name, setName] = useState('');
+    const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [image, setImage] = useState('');
     const [rate, setRate] = useState('');
     const [ratingCount, setRatingCount] = useState('');
     const [error, setError] = useState('');
@@ -19,7 +19,7 @@ const AddProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!name || !price || !description || !category || !imageUrl || !rate || !ratingCount) {
+        if (!title || !price || !description || !category || !image || !rate || !ratingCount) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -29,17 +29,17 @@ const AddProduct = () => {
         }
 
         const newProduct = {
-            name,
-            price: parseFloat(price), 
+            title,
+            price: parseFloat(price),
             description,
             category,
-            imageUrl,
+            image,
             rate: parseFloat(rate),
-            ratingCount: parseInt(ratingCount), 
+            ratingCount: parseInt(ratingCount),
         };
 
         try {
-            const response = await axios.post('/api/products', newProduct);
+            const response = await axios.post('http://localhost:3000/products');
             console.log('Product added:', response.data);
 
             Swal.fire({
@@ -48,11 +48,11 @@ const AddProduct = () => {
                 icon: "success",
             });
 
-            setName('');
+            setTitle('');
             setPrice('');
             setDescription('');
             setCategory('');
-            setImageUrl('');
+            setImage('');
             setRate('');
             setRatingCount('');
         } catch (err) {
@@ -83,9 +83,10 @@ const AddProduct = () => {
                         id="product-name"
                         label="Product Title"
                         variant="outlined"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         fullWidth
+                        
                     />
                     <TextField
                         id="product-price"
@@ -125,8 +126,8 @@ const AddProduct = () => {
                         label="Product Image URL"
                         variant="outlined"
                         type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
                         fullWidth
                         helperText="Must start with Https://url"
                     />

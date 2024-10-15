@@ -12,7 +12,7 @@ const ProductList = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/api/products');
+                const response = await axios.get('http://localhost:3000/products'); 
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -31,7 +31,7 @@ const ProductList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/products/${id}`);
+            await axios.delete(`http://localhost:3000/products/${id}`); 
 
             const updatedProducts = products.filter((product) => product.id !== id);
             setProducts(updatedProducts);
@@ -79,7 +79,7 @@ const ProductList = () => {
               <tbody>
                 {products.map((product) => (
                   <tr key={product.id} className="border-t border-gray-200">
-                    <td className="px-10 py-4">{product.name}</td>
+                    <td className="px-10 py-4">{product.title}</td>
                     <td className="px-10 py-4 text-right">${product.price}</td>
                     <td className="px-10 py-4 text-center space-x-2">
                       <Link to={`/admin-product/view-product/${product.id}`}>
@@ -109,6 +109,6 @@ const ProductList = () => {
           </div>
         </div>
       );
-    };  
+};
 
 export default ProductList;

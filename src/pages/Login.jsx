@@ -9,7 +9,6 @@ export default function Login({ users, setLogged }) {
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
