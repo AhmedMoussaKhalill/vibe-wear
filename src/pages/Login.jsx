@@ -65,7 +65,7 @@ export default function Login({ users, setLogged }) {
   };
 
   return (
-    <div className="items-center justify-center rounded-3xl border-2 border-gray-200 bg-white px-10 py-20">
+    <div className="items-center justify-center rounded-3xl border-2 border-gray-200 px-10 py-20">
       <form onSubmit={handleSubmit}>
         <h1 className="text-5xl font-semibold">WELCOME BACK</h1>
         <p className="mt-4 text-lg font-medium text-gray-500">
