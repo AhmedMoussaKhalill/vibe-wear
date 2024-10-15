@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 const SideBar = () => {
   const location = useLocation();
   return (
-    <aside className="fixed left-0 z-20 h-full w-52 bg-black px-5 py-4 dark:bg-[#111827]">
+    <aside className="fixed left-0 z-20 h-full w-52 bg-black px-4 py-4 dark:bg-[#111827]">
       <div className="flex flex-col space-y-5">
         <div className="logo flex items-baseline gap-x-1 text-3xl font-bold text-white">
           Vibe Wear <div className="rounded-full bg-[#e86f51] p-[3px]" />
@@ -59,7 +59,7 @@ const sideBarLinks = [
   },
   {
     label: "Products",
-    route: "/admin/products",
+    route: "/admin/admin-product",
     icon: <Icons.shop className="size-[22px]" />,
   },
 ];
