@@ -39,7 +39,7 @@ const AddProduct = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/products');
+            const response = await axios.post(process.env.VITE_PRODUCTS_API);
             console.log('Product added:', response.data);
 
             Swal.fire({
