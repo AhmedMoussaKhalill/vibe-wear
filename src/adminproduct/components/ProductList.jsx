@@ -26,7 +26,7 @@ const ProductList = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/admin-product/edit-product/${id}`);
+        navigate(`/admin/admin-product/edit-product/${id}`);
     };
 
     const handleDelete = async (id) => {
@@ -48,7 +48,7 @@ const ProductList = () => {
         <div className="text-center mt-4">
             <h2 className="text-2xl font-bold mb-4">No products available.</h2>
             <Link
-                to="/admin-product/add-product"
+                to="/admin/admin-product/add-product"
                 className="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
             >
                 Add A New Product
@@ -57,11 +57,12 @@ const ProductList = () => {
     );
 
     return (
-        <div className="container mx-auto px-4 py-6 pl-52">
+        <div className="pl-52">
+        <div className="container mx-auto px-4 py-6">
           <h2 className="text-3xl font-bold mb-6 text-center">Product List</h2>
           <div className="text-center mb-4">
             <Link
-              to="/admin-product/add-product"
+              to="/admin/admin-product/add-product"
               className="inline-block bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
             >
               Add A New Product
@@ -82,12 +83,12 @@ const ProductList = () => {
                     <td className="px-10 py-4">{product.title}</td>
                     <td className="px-10 py-4 text-right">${product.price}</td>
                     <td className="px-10 py-4 text-center space-x-2">
-                      <Link to={`/admin-product/view-product/${product.id}`}>
+                      <Link to={`/admin/admin-product/view-product/${product.id}`}>
                         <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-200">
                           View
                         </button>
                       </Link>
-                      <Link to={`/admin-product/edit-product/${product.id}`}>
+                      <Link to={`/admin/admin-product/edit-product/${product.id}`}>
                         <button
                           onClick={() => handleEdit(product.id)}
                           className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition duration-200"
@@ -107,6 +108,7 @@ const ProductList = () => {
               </tbody>
             </table>
           </div>
+        </div>
         </div>
       );
 };
