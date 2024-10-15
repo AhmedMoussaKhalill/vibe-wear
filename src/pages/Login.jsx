@@ -1,66 +1,61 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Login({ users, setLogged }) {
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate("");
-
-  const handelForm = (e) => {
-    e.preventDefault();
-
-    const checkUser = users.find(
-      ({ email, password }) => formData.email == email && formData.password == password,
-    );
-
-     let errors = {};
-    const { email, password } = formData;
+  const validateForm = () => {
+    const validationErrors = {};
+    const { email, password } = user;
 
     if (!email.trim()) {
-      errors.email = "Email is required";
+      validationErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = "Email address is invalid";
+      validationErrors.email = "Email address is invalid";
     }
 
     if (!password.trim()) {
-      errors.password = "Password is required";
+      validationErrors.password = "Password is required";
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+      validationErrors.password = "Password must be at least 6 characters";
     }
 
-    if (checkUser) {
-      localStorage.ck = checkUser.id;
-      setLogged(true);
-      navigate("/");
-    }
-
-    return errors;
+    return validationErrors;
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = handelForm();
+
+    const validationErrors = validateForm();
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // Proceed with login logic (e.g., API call)
-      console.log("Form data is valid:", formData);
+      const checkUser = users.find(
+        ({ email, password }) => user.email === email && user.password === password,
+      );
+
+      if (checkUser) {
+        localStorage.setItem("ck", checkUser.id);
+        setLogged(true);
+        navigate("/");
+      } else {
+        setErrors({ general: "Invalid email or password" });
+      }
     }
   };
 
@@ -79,12 +74,10 @@ export default function Login({ users, setLogged }) {
               name="email"
               className="mt-1 w-full rounded-xl border-2 border-gray-100 bg-transparent p-2.5"
               placeholder="Enter your email"
-              value={formData.email}
+              value={user.email}
               onChange={handleChange}
             />
-            {errors.email && (
-              <span className="text-red-500">{errors.email}</span>
-            )}
+            {errors.email && <span className="text-red-500">{errors.email}</span>}
           </div>
           <div>
             <label className="text-lg font-medium">Password</label>
@@ -93,13 +86,17 @@ export default function Login({ users, setLogged }) {
               name="password"
               className="mt-1 w-full rounded-xl border-2 border-gray-100 bg-transparent p-2.5"
               placeholder="Enter your password"
-              value={formData.password}
+              value={user.password}
               onChange={handleChange}
             />
             {errors.password && (
               <span className="text-red-500">{errors.password}</span>
             )}
           </div>
+
+          {errors.general && (
+            <div className="text-red-500 mt-2">{errors.general}</div>
+          )}
 
           <div className="mt-8 flex items-center justify-between">
             <div>
@@ -111,13 +108,17 @@ export default function Login({ users, setLogged }) {
           </div>
 
           <div className="mt-8 flex flex-col gap-y-4">
-            <button type="submit" className="rounded-xl bg-blue-800 py-3 text-lg font-bold text-white transition-all ease-in-out hover:scale-[1.01] active:scale-[.98] active:duration-75">
+            <Button
+              type="submit"
+              className="rounded-xl bg-blue-800 py-3 text-lg font-bold text-white transition-all ease-in-out hover:scale-[1.01] active:scale-[.98] active:duration-75"
+            >
               Sign In
-            </button>
+              <ArrowRight className="ml-2" />
+            </Button>
           </div>
 
           <div className="mt-8 flex items-center justify-center">
-            <p className="text-base font-medium">Don't have any account?</p>
+            <p className="text-base font-medium">Don't have an account?</p>
             <Link
               to="/signup"
               className="ml-2 text-base font-medium text-blue-800"
