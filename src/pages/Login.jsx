@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Login({ users, setLogged }) {
-  const [user, setUser] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
@@ -25,11 +25,11 @@ export default function Login({ users, setLogged }) {
     e.preventDefault();
 
     const checkUser = users.find(
-      ({ email, password }) => user.email == email && user.password == password,
+      ({ email, password }) => formData.email == email && formData.password == password,
     );
 
      let errors = {};
-    const { email, password } = user;
+    const { email, password } = formData;
 
     if (!email.trim()) {
       errors.email = "Email is required";
