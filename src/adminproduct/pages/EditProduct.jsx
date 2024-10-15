@@ -25,7 +25,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/products/${id}`);
+                const response = await fetch(process.env.VITE_PRODUCTS_API + `/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch product');
                 }
@@ -52,7 +52,7 @@ const EditProduct = () => {
     // Function to update product details
     const updateProduct = async (productData) => {
         try {
-            const response = await axios.put(`http://localhost:3000/products/${id}`, {
+            const response = await axios.put(process.env.VITE_PRODUCTS_API + `/${id}`, {
                 ...productData,
                 id: parseInt(id), 
             });
