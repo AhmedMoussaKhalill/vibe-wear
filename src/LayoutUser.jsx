@@ -22,7 +22,7 @@ const LayoutUser = ({
 }) => {
   const [cards, setCards] = useState([]);
   async function GETAPI() {
-    let myCards = await fetch(process.env.VITE_USERS_API);
+    let myCards = await fetch(process.env.VITE_PRODUCTS_API);
     myCards = await myCards.json();
     myCards = myCards.products;
     setCards(myCards);
