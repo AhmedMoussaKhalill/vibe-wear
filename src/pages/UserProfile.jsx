@@ -1,6 +1,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Swal from 'sweetalert2';
 import {
   Card,
   CardContent,
@@ -42,10 +43,19 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
       data: userDetails,
     }).then(({ status }) => {
       if (status === 200) {
-        console.log("chnage have made successfully")
+        Swal.fire({
+          title: "Good job!",
+          text: "Changes Have Made Successfully",
+          icon: "success"
+        });
+
         setIsEditing(false);
       } else {
-        console.log("Something went wrong");
+        Swal.fire({
+          title: "Oops...",
+          text: "Something went wrong!",
+          icon: "error"
+        });
       }
     });
   };
