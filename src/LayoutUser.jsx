@@ -5,6 +5,7 @@ import Home from "./Components/Home/Home";
 import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
 import Shop from "./Components/Shop/Shop";
+import SignUp from "./components/SignUp";
 import Cart from "./Components/Cart/Cart";
 import { Route, Routes, Outlet } from "react-router-dom";
 
@@ -63,6 +64,10 @@ const LayoutUser = ({
         <Route
           path="/login"
           element={<Login users={users} setLogged={setLogged} />}
+        />
+        <Route
+          path="/signup"
+          element={<SignUp users={users} setLogged={setLogged} />}
         />
       </Routes>
       <Footer />
