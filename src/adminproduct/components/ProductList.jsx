@@ -12,7 +12,7 @@ const ProductList = () => {
         const fetchProducts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:3000/products'); 
+                const response = await axios.get(process.env.VITE_PRODUCTS_API); 
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -31,7 +31,7 @@ const ProductList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/products/${id}`); 
+            await axios.delete(process.env.VITE_PRODUCTS_API + `/${id}`); 
 
             const updatedProducts = products.filter((product) => product.id !== id);
             setProducts(updatedProducts);
