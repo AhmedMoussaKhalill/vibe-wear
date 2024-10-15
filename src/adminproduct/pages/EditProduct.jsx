@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TextField } from '@mui/material';
 import Swal from 'sweetalert2';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -25,12 +25,20 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`/api/products/${id}`);
+                const response = await fetch(`http://localhost:3000/products/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch product');
                 }
                 const productData = await response.json();
-                setProduct(productData);
+                setProduct({
+                    name: productData.title,
+                    price: productData.price,
+                    category: productData.category,
+                    description: productData.description,
+                    imageUrl: productData.image,
+                    rate: productData.rating.rate,
+                    ratingCount: productData.rating.count,
+                });
             } catch (error) {
                 setError('Error fetching product');
             } finally {
@@ -42,9 +50,12 @@ const EditProduct = () => {
     }, [id]);
 
     // Function to update product details
-    const updateProduct = async (id, productData) => {
+    const updateProduct = async (productData) => {
         try {
-            const response = await axios.put(`/api/products/${id}`, productData);
+            const response = await axios.put(`http://localhost:3000/products/${id}`, {
+                ...productData,
+                id: parseInt(id), 
+            });
             return response.data;
         } catch (error) {
             console.error('Error in updateProduct:', error);
@@ -56,7 +67,7 @@ const EditProduct = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const updatedProduct = await updateProduct(id, product);
+            await updateProduct(product);
             Swal.fire({
                 title: "Product Updated",
                 text: "Your product has been successfully updated!",
@@ -163,7 +174,7 @@ const EditProduct = () => {
                         type="submit"
                         className="bg-black text-white px-6 py-2 rounded-lg transition duration-200 hover:bg-gray-800"
                     >
-                        ADD NEW PRODUCT
+                        UPDATE PRODUCT
                     </button>
                 </div>
             </form>
