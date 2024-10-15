@@ -68,9 +68,10 @@ const AddProduct = () => {
         }
     };
     return (
+        <div className="pl-52">
         <div className="container mx-auto mt-8 border bg-gray-200 border-gray-400 p-4">
             <div className="flex items-center mb-6">
-                <Link to="/admin-product" className="flex items-center text-blue-600 hover:underline mr-4">
+                <Link to="/admin/admin-product" className="flex items-center text-blue-600 hover:underline mr-4">
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2 text-black text-2xl" />
                 </Link>
 
@@ -165,6 +166,7 @@ const AddProduct = () => {
 
             </form>
         </div>
+    </div>
     );
 };
 
