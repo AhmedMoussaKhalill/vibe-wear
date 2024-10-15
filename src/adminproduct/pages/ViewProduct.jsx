@@ -12,7 +12,7 @@ const ViewProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/products/${id}`);
+        const response = await fetch(process.env.VITE_PRODUCTS_API + `/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch product data');
         }
