@@ -3,12 +3,21 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Login = ({ users, setLogged }) => {
+export default function Login({ users, setLogged }) {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
 
   const navigate = useNavigate("");
 
@@ -19,81 +28,105 @@ const Login = ({ users, setLogged }) => {
       ({ email, password }) => user.email == email && user.password == password,
     );
 
-    // const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+     let errors = {};
+    const { email, password } = user;
+
+    if (!email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "Email address is invalid";
+    }
+
+    if (!password.trim()) {
+      errors.password = "Password is required";
+    } else if (password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
 
     if (checkUser) {
       localStorage.ck = checkUser.id;
       setLogged(true);
       navigate("/");
     }
-    //   user.name[0] == " " ||
-    //   isNaN(user.name[0]) == false ||
-    //   user.name.length < 3
-    // ) {
-    //   // toast.error("Please enter a valid name");
-    //   return false;
-    // } else if (!emailRegex.test(user.email)) {
-    //   // toast.error("Please enter a valid email");
-    //   return false;
-    // } else if (user.password == "") {
-    //   // toast.error("Please enter a valid password");
-    //   return false;
-    // }
-    // return true;
+
+    return errors;
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = handelForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      // Proceed with login logic (e.g., API call)
+      console.log("Form data is valid:", formData);
+    }
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-lg items-center justify-center px-5">
-      <div className="w-full space-y-5 rounded-xl bg-gray-500/5 p-6 ring-1 ring-gray-900/10">
-        <div className="flex flex-col items-center justify-center space-y-2">
-          <h2 className="font font-serif text-4xl">Login</h2>
-          <p>Nice To Meet You Again</p>
-        </div>
-        <form action="" onSubmit={handelForm} className="space-y-3.5">
-          <div className="flex flex-col space-y-3.5">
-            <label htmlFor="" className="font text-lg">
-              Email
-            </label>
-            <Input
-              value={user.email}
-              type="email"
-              placeholder="Enter Your Email..."
-              className="h-11 rounded-lg border-0 bg-gray-500/5 ring-1 ring-gray-900/10"
-              onChange={(e) => {
-                setUser({
-                  ...user,
-                  email: e.target.value,
-                });
-              }}
+    <div className="items-center justify-center rounded-3xl border-2 border-gray-200 bg-white px-10 py-20">
+      <form onSubmit={handleSubmit}>
+        <h1 className="text-5xl font-semibold">WELCOME BACK</h1>
+        <p className="mt-4 text-lg font-medium text-gray-500">
+          Please enter your details
+        </p>
+        <div className="mt-8">
+          <div>
+            <label className="text-lg font-medium">Email</label>
+            <input
+              type="text"
+              name="email"
+              className="mt-1 w-full rounded-xl border-2 border-gray-100 bg-transparent p-2.5"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
             />
+            {errors.email && (
+              <span className="text-red-500">{errors.email}</span>
+            )}
           </div>
-          <div className="flex flex-col space-y-3.5">
-            <label htmlFor="" className="font text-lg">
-              Password
-            </label>
-            <Input
-              value={user.password}
-              placeholder="Enter Your Password..."
+          <div>
+            <label className="text-lg font-medium">Password</label>
+            <input
               type="password"
-              className="h-11 rounded-lg border-0 bg-gray-500/5 ring-1 ring-gray-900/10"
-              onChange={(e) => {
-                setUser({
-                  ...user,
-                  password: e.target.value,
-                });
-              }}
+              name="password"
+              className="mt-1 w-full rounded-xl border-2 border-gray-100 bg-transparent p-2.5"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
             />
+            {errors.password && (
+              <span className="text-red-500">{errors.password}</span>
+            )}
           </div>
-          <div className="pt-3">
-            <Button type="submit" size="lg" className="group w-full gap-x-2.5 rounded-lg">
-              Sign In{" "}
-              <ArrowRight className="size-3.5 transition-all duration-300 group-hover:translate-x-1" />
-            </Button>
+
+          <div className="mt-8 flex items-center justify-between">
+            <div>
+              <input type="checkbox" id="remember" />
+              <label className="ml-2 text-base font-medium" htmlFor="remember">
+                Remember for 30 days
+              </label>
+            </div>
           </div>
-        </form>
-      </div>
+
+          <div className="mt-8 flex flex-col gap-y-4">
+            <button type="submit" className="rounded-xl bg-blue-800 py-3 text-lg font-bold text-white transition-all ease-in-out hover:scale-[1.01] active:scale-[.98] active:duration-75">
+              Sign In
+            </button>
+          </div>
+
+          <div className="mt-8 flex items-center justify-center">
+            <p className="text-base font-medium">Don't have any account?</p>
+            <Link
+              to="/signup"
+              className="ml-2 text-base font-medium text-blue-800"
+            >
+              Sign up
+            </Link>
+          </div>
+        </div>
+      </form>
     </div>
   );
-};
-
-export default Login;
+}
