@@ -1,26 +1,78 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/Login';
-import SignUp from './components/SignUp'; 
+import "./App.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import LayoutUser from "./LayoutUser";
+import LayoutAdmin from "./LayoutAdmin";
+import axios from "axios";
+import NotFound from "./pages/404";
 
-function App() {
+const App = () => {
+  const [users, setUsers] = useState([]);
+  const [logged, setLogged] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+
+ const [CartArray, setCartArray] = useState(
+    JSON.parse(localStorage.getItem("CartArray")) || [],
+  );
+  
+  const getUsers = () => {
+    axios({
+      method: "get",
+      url: "http://localhost:3000/users",
+    }).then(({ data }) => setUsers(data));
+  };
+  
+
+  const getUserDetails = () => {
+    axios({
+      method: "get",
+      url: `http://localhost:3000/users/${localStorage.ck}`,
+    }).then(({ data }) => setUserDetails(data));
+  };
+
+  useEffect(() => {
+    if (logged) {
+      getUserDetails();
+    } else {
+      localStorage.ck && setLogged(true);
+    }
+  }, [logged]);
+
+  useEffect(() => {
+    getUsers();
+  });
+
   return (
-    <div className="flex h-screen w-full bg-gray-200">
-      <div className="flex w-full items-center justify-center bg-gray-300 lg:w-full">
-    <Router>
+    <div>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} /> 
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/*"
+          element={
+            <LayoutUser
+              users={users}
+              userDetails={userDetails}
+              logged={logged}
+              setLogged={setLogged}
+              setUserDetails={setUserDetails}
+              CartArray={CartArray} 
+              setCartArray={setCartArray}
+            />
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            userDetails?.role == "admin" ? (
+              <LayoutAdmin users={users} userDetails={userDetails} setLogged={setLogged} />
+            ) : (
+              <NotFound />
+            )
+          }
+        />
       </Routes>
-    </Router>
     </div>
-    </div>
-
-  )
-  
+  );
 };
-  
-
 
 export default App;
