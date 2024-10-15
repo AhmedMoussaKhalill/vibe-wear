@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
+import axios from "axios";
 
 const UserProfile = ({ userDetails, setUserDetails }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -32,6 +33,22 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
     }
   };
 
+  const saveChanges = (e) => {
+    e.preventDefault();
+
+    axios({
+      method: "put",
+      url: `http://localhost:3000/users/${localStorage.ck}`,
+      data: userDetails,
+    }).then(({ status }) => {
+      if (status === 200) {
+        console.log("chnage have made successfully")
+        setIsEditing(false);
+      } else {
+        console.log("Something went wrong");
+      }
+    });
+  };
   return (
     <div className="mx-auto max-w-7xl px-5 py-14">
       <Card className="mx-auto max-w-5xl pb-3">
@@ -56,7 +73,13 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                 )}
               </Button>
               {isEditing && (
-                <Button className="rounded-lg">Save Changes</Button>
+                <Button
+                  form="user-profile-form"
+                  type="submit"
+                  className="rounded-lg"
+                >
+                  Save Changes
+                </Button>
               )}
             </div>
           </div>
@@ -78,7 +101,12 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
               </Avatar>
               <Badge className="rounded-full px-3.5">{userDetails?.role}</Badge>
             </div>
-            <div className="flex w-full flex-col space-y-6">
+
+            <form
+              id="user-profile-form"
+              onSubmit={saveChanges}
+              className="flex w-full flex-col space-y-6"
+            >
               <div className="space-y-2">
                 <h1 className="logo text-3xl font-bold">{userDetails?.name}</h1>
                 <p>
@@ -88,7 +116,7 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
               </div>
               <div className="grid w-full grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label htmlFor="" className="text-sm">
+                  <label htmlFor="name" className="text-sm">
                     Your Name
                   </label>
                   <Input
@@ -96,13 +124,13 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                       setUserDetails({ ...userDetails, name: e.target.value })
                     }
                     value={userDetails?.name}
-                    id="username"
+                    id="name"
                     className="h-10 rounded-lg"
                     disabled={!isEditing}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="" className="text-sm">
+                  <label htmlFor="email" className="text-sm">
                     Your Email
                   </label>
                   <Input
@@ -110,13 +138,13 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                       setUserDetails({ ...userDetails, email: e.target.value })
                     }
                     value={userDetails?.email}
-                    id="username"
+                    id="email"
                     className="h-10 rounded-lg"
                     disabled={!isEditing}
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="" className="text-sm">
+                  <label htmlFor="gender" className="text-sm">
                     Your Gender
                   </label>
                   <Select
@@ -135,7 +163,7 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="" className="text-sm">
+                  <label htmlFor="password" className="text-sm">
                     Your Password
                   </label>
                   <Input
@@ -147,13 +175,13 @@ const UserProfile = ({ userDetails, setUserDetails }) => {
                     }
                     value={userDetails?.password}
                     type="password"
-                    id="username"
+                    id="password"
                     className="h-10 rounded-lg"
                     disabled={!isEditing}
                   />
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </CardContent>
       </Card>

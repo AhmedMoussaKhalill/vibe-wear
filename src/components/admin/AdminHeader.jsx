@@ -1,7 +1,6 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ChevronDown } from "lucide-react";
-import SearchInput from "../Search";
 import { ModeToggle } from "../mode-toggle";
 import UserMenu from "../user/UserMenu";
 
@@ -12,7 +11,6 @@ const AdminHeader = ({ userDetails, setLogged }) => {
         <div className="logo text-3xl font-bold">Dashboard</div>
         <div className="flex space-x-6">
           <ModeToggle />
-          <SearchInput />
           <div className="flex items-center space-x-3">
             <UserMenu setLogged={setLogged} userDetails={userDetails} />
 

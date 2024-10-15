@@ -17,12 +17,14 @@ const UserMenu = ({ setLogged, userDetails }) => {
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
           <AvatarImage src="/avatar.JPG" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            {userDetails?.name.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <Link to="/profile">
-          <DropdownMenuItem>Welcome Ahmed</DropdownMenuItem>
+          <DropdownMenuItem>Welcome {userDetails?.name}</DropdownMenuItem>
         </Link>
         {userDetails?.role == "admin" && (
           <Link to="/admin">
