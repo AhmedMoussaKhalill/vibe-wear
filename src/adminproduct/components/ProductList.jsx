@@ -57,7 +57,7 @@ const ProductList = () => {
     );
 
     return (
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-6 pl-52">
           <h2 className="text-3xl font-bold mb-6 text-center">Product List</h2>
           <div className="text-center mb-4">
             <Link
