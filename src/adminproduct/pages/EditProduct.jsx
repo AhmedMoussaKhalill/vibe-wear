@@ -74,7 +74,7 @@ const EditProduct = () => {
                 icon: "success",
                 confirmButtonText: "Okay"
             });
-            navigate('/admin-product');
+            navigate('/admin/admin-product');
         } catch (error) {
             console.error('Error updating product:', error);
             const errorMessage = error.response?.data?.error || "An error occurred while updating the product.";
@@ -93,9 +93,10 @@ const EditProduct = () => {
     }
 
     return (
+        <div className="pl-52">
         <div className="container mx-auto mt-8 border bg-gray-200 border-gray-400 p-4">
             <div className="flex items-center mb-6">
-                <Link to="/admin-product" className="flex items-center text-blue-600 hover:underline mr-4">
+                <Link to="/admin/admin-product" className="flex items-center text-blue-600 hover:underline mr-4">
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2 text-black text-2xl" />
                 </Link>
                 <h2 className="text-3xl font-bold">Edit Product</h2>
@@ -179,6 +180,7 @@ const EditProduct = () => {
                 </div>
             </form>
         </div>
+         </div>
     );
 };
 
